@@ -129,4 +129,46 @@ anltk.constants.GAF
 anltk.constants.TATWEEL
 anltk.constants.TANWEEN_FATHA
 anltk.constants.TANWEEN_DAMMA
-anltk.cons
+anltk.constants.TANWEEN_KASRA
+anltk.constants.FATHA
+anltk.constants.DAMMA
+anltk.constants.KASRA
+anltk.constants.SHADDA
+anltk.constants.SUKUN
+anltk.constants.FASLA
+anltk.constants.QUESTION_MARK
+anltk.constants.FASLA_MANKOOTA
+anltk.constants.NOKTATAN
+anltk.constants.NESBA
+anltk.constants.TA3AJJOB
+anltk.constants.KAWS_MAFTOOH
+anltk.constants.KAWS_MAKFOOL
+anltk.constants.DARB
+anltk.constants.JAM3
+anltk.constants.KESMA
+anltk.constants.TAR7
+anltk.constants.YOSAWI
+anltk.constants.NOQTA
+anltk.constants.SEFR
+anltk.constants.WAHED
+anltk.constants.ETHNAN
+anltk.constants.THALATHA
+anltk.constants.ARBA3A
+anltk.constants.KHAMSA
+anltk.constants.SETTA
+anltk.constants.SAB3A
+anltk.constants.THAMANEYA
+anltk.constants.TES3A
+anltk.constants.SMALL_ALEF
+anltk.constants.SMALL_WAW
+anltk.constants.SMALL_YEH
+
+anltk.constants.ARQAM
+# ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩']
+
+anltk.constants.HARAKAT
+# ['ً', 'ٌ', 'ٍ', 'َ', 'ُ', 'ِ', 'ّ', 'ْ']
+
+anltk.constants.ALPHABET
+#['ء', 'آ', 'أ', 'ؤ', 'إ', 'ئ', 'ا', 'ب', 'ة', 'ت', 'ث', 'ج', 'ح', 'خ', 'د', 'ذ', 'ر', 'ز', 'س', 'ش', 'ص', 'ض', 'ط', 'ظ', 'ع', 'غ', 'ف', 'ق', 'ك', 'ل', 'م', 'ن', 'ه', 'و', 'ى', 'ي']
+```
