@@ -84,4 +84,83 @@ constexpr char_t NESBA          = U'\u0025';
 constexpr char_t TA3AJJOB       = U'\u0021';
 constexpr char_t KAWS_MAFTOOH   = U'\u0028';
 constexpr char_t KAWS_MAKFOOL   = U'\u0029';
-constexpr char
+constexpr char_t DARB           = U'\u002A';
+constexpr char_t JAM3           = U'\u002B';
+constexpr char_t KESMA          = U'\u002F';
+constexpr char_t TAR7           = U'\u002D';
+constexpr char_t YOSAWI         = U'\u003D';
+constexpr char_t NOQTA          = U'\u06F0';
+
+// numbers
+constexpr char_t SEFR      = U'\u0660';
+constexpr char_t WAHED     = U'\u0661';
+constexpr char_t ETHNAN    = U'\u0662';
+constexpr char_t THALATHA  = U'\u0663';
+constexpr char_t ARBA3A    = U'\u0664';
+constexpr char_t KHAMSA    = U'\u0665';
+constexpr char_t SETTA     = U'\u0666';
+constexpr char_t SAB3A     = U'\u0667';
+constexpr char_t THAMANEYA = U'\u0668';
+constexpr char_t TES3A     = U'\u0669';
+
+// Small Letters
+constexpr char_t SMALL_ALEF = U'\u0670';
+constexpr char_t SMALL_WAW  = U'\u06E5';
+constexpr char_t SMALL_YEH  = U'\u06E6';
+
+extern const std::map<char_t, char_t> arabic_to_buckwalter_;
+
+extern const std::map<char_t, char_t> buckwalter_to_arabic_;
+
+extern const std::map<char_t, char_t> arabic_to_safe_buckwalter_;
+
+extern const std::map<char_t, char_t> safe_buckwalter_to_arabic_;
+
+const constexpr std::array<char_t, 36> alphabet_ = 
+{
+	HAMZA,
+	ALEF_MADDA,
+	ALEF_HAMZA_ABOVE,
+	WAW_HAMZA_ABOVE,
+	ALEF_HAMZA_BELOW,
+	YEH_HAMZA_ABOVE,
+	ALEF_NO_HAMZA,
+	BEH,
+	TEH_MARBOOTA,
+	TEH,
+	THEH,
+	JEEM,
+	HAH,
+	KHAH,
+	DAL,
+	THAL,
+	REH,
+	ZAIN,
+	SEEN,
+	SHEEN,
+	SAD,
+	DAD,
+	TAH,
+	ZAH,
+	AIN,
+	GHAIN,
+	FEH,
+	QAF,
+	KAF,
+	LAM,
+	MEEM,
+	NOON,
+	HEH,
+	WAW,
+	ALEF_MAQSURA,
+	YEH 
+};
+
+const constexpr std::array<char_t, 8> tashkeel_list_
+    = { FATHATAN, DAMMATAN, KASRATAN, FATHA, DAMMA, KASRA, SHADDA, SUKUN };
+
+const constexpr std::array<char_t, 3> small_list_ = { SMALL_ALEF, SMALL_WAW, SMALL_YEH };
+const constexpr std::array<char_t, 10> arqam_
+     = { SEFR, WAHED, ETHNAN, THALATHA, ARBA3A, KHAMSA, SETTA, SAB3A, THAMANEYA, TES3A };
+
+const constexpr std::array<char_t, 14> qamari_
