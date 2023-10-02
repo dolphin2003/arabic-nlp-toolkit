@@ -75,4 +75,83 @@ void parse_args(int argc, char* argv[])
 	{
 		std::cerr << err.what() << std::endl;
 		std::cerr << program;
-		std::exit(1
+		std::exit(1);
+	}
+}
+
+void flush_lines(std::ostream& os, std::stack<std::string>& lines)
+{
+
+	while (!lines.empty())
+	{
+		os << lines.top() << '\n';
+		lines.pop();
+	}
+}
+
+void process_file(const std::string& filepath_)
+{
+	fs::path filepath(filepath_);
+
+	std::ifstream ifs(filepath.c_str());
+	fs::path outdir_path = fs::path(opts.output_directory);
+
+	if (!ifs.is_open())
+	{
+		std::cerr << "Unable to open file " << filepath << ". Skipping.\n";
+	}
+	std::stack<std::string> lines;
+	std::string line;
+
+	fs::path outfile_path = outdir_path
+	    / (opts.output_file_prefix + filepath.stem().string() + opts.output_file_suffix);
+	std::ofstream ofs(outfile_path.c_str());
+
+	while (std::getline(ifs, line))
+	{
+		for (auto&& l : anltk::split_on(line, ",.\"،؟?:", opts.max_words_per_line))
+		{
+			if (lines.empty())
+			{
+				lines.emplace(l);
+				continue;
+			}
+			int lwc    = std::count(l.begin(), l.end(), ' ');
+			auto& prev = lines.top();
+			int bwc    = std::count(prev.begin(), prev.end(), ' ');
+			if ((lwc + bwc) < (opts.max_words_per_line + opts.min_words_per_line))
+			{
+				// std::cout << lines.top() <<std::endl;
+				prev += " " + l;
+				// std::cout << lines.top() <<std::endl<<std::endl;
+			}
+			else
+			{
+				lines.emplace(l);
+				flush_lines(ofs, lines);
+			}
+		}
+	}
+}
+
+int main(int argc, char* argv[])
+{
+	parse_args(argc, argv);
+
+	fs::path outdir_path = fs::path(opts.output_directory);
+
+	if (!fs::exists(outdir_path))
+	{
+		std::cout << "Output directory doesn't exist, creating one\n";
+		fs::create_directories(outdir_path);
+	}
+
+	tf::Executor executor(opts.n_threads);
+	tf::Taskflow taskflow;
+	std::cout << "n worder " << executor.num_workers() << std::endl;
+	taskflow.for_each(opts.files.begin(), opts.files.end(),
+	                  [](const std::string& filename) { process_file(filename); });
+
+	executor.run(taskflow).get();
+	return 0;
+}
