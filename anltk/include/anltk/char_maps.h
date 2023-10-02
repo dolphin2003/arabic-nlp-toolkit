@@ -36,4 +36,52 @@ constexpr char_t AIN              = U'\u0639'; // ع	 \u0639
 constexpr char_t GHAIN            = U'\u063A'; // غ	 \u063A
 constexpr char_t FEH              = U'\u0641'; // ف	 \u0641
 constexpr char_t QAF              = U'\u0642'; // ق	 \u0642
+constexpr char_t KAF              = U'\u0643'; // ك	 \u0643
+constexpr char_t LAM              = U'\u0644'; // ل	 \u0644
+constexpr char_t MEEM             = U'\u0645'; // م	 \u0645
+constexpr char_t NOON             = U'\u0646'; // ن	 \u0646
+constexpr char_t HEH              = U'\u0647'; // ه	 \u0647
+constexpr char_t WAW              = U'\u0648'; // و	 \u0648
+constexpr char_t ALEF_MAQSURA     = U'\u0649'; // ى	 \u0649
+constexpr char_t YEH              = U'\u064A'; // ي	 \u064A
+
+
+// extras
+// not an alpha
+constexpr char_t TATWEEL    = U'\u0640'; // ـ \u0640
+constexpr char_t ALEF_WASLA = U'\u0671'; // ٱ  \u0671
+constexpr char_t PEH        = U'\u067E'; // پ  \u067E
+constexpr char_t TCHEH      = U'\u0686'; // چ  \u0686
+constexpr char_t VEH        = U'\u06A4'; // ڤ  \u06A4
+constexpr char_t GAF        = U'\u06AF'; // گ  \u06AF
+
+// \u064B	ً
+// \u064C	ٌ
+// \u064D	ٍ
+// \u064E	َ
+// \u064F	ُ
+// \u0650	ِ
+// \u0651	ّ
+// \u0652	ْ
+// \u0670	ٰ
+
+// harakat
+constexpr char_t FATHATAN      = U'\u064b'; // 	ً  \u064B
+constexpr char_t DAMMATAN      = U'\u064c'; // 	ٌ  \u064C
+constexpr char_t KASRATAN      = U'\u064d'; // 	ٍ  \u064D
+constexpr char_t FATHA         = U'\u064e'; // 	َ  \u064E
+constexpr char_t DAMMA         = U'\u064f'; // 	ُ  \u064F
+constexpr char_t KASRA         = U'\u0650'; // 	ِ  \u0650
+constexpr char_t SHADDA        = U'\u0651'; // 	ّ  \u0651
+constexpr char_t SUKUN         = U'\u0652'; // 	ْ  \u0652
+
+// symbols
+constexpr char_t FASLA          = U'\u060C';
+constexpr char_t QUESTION_MARK  = U'\u061F';
+constexpr char_t FASLA_MANKOOTA = U'\u060B';
+constexpr char_t NOKTATAN       = U'\u003A';
+constexpr char_t NESBA          = U'\u0025';
+constexpr char_t TA3AJJOB       = U'\u0021';
+constexpr char_t KAWS_MAFTOOH   = U'\u0028';
+constexpr char_t KAWS_MAKFOOL   = U'\u0029';
 constexpr char
