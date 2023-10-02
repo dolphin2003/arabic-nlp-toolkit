@@ -50,4 +50,83 @@ anltk.is_arabic_alpha('أ') # True
 # if a character is shamsi
 anltk.is_shamsi('ش')
 #	True
-# 
+# if a character is qamari
+anltk.is_qamari('و')
+#	True
+```
+
+
+## Preprocessing:
+```python
+anltk.remove_tashkeel('فرَاشَةٌ مُلَوَّنَةٌ تَطِيْرُ في البُسْتَانِ')
+# 'فراشة ملونة تطير في البستان'
+
+# stop_list contains list of characters that won't be removed
+anltk.remove_non_alpha('فرَاdشَةٌ مُلَوَّنَ3ةٌ!', stop_list = '! ')
+# 'فراشة ملونة!'
+
+anltk.remove_non_alphanumeric('فرَاdشَةٌ مُلَوَّ3نَةٌ!', stop_list = '! ')
+# 'فراشة ملو3نة!'
+
+anltk.remove_non_alphanumeric_and_tashkeel('فرَاdشَةٌ مُلَوَّ3نَةٌ!', stop_list = '! ')
+# 'فرَاشَةٌ مُلَوَّ3نَةٌ!'
+
+anltk.remove_kasheeda('بســــم الـــله')
+# 'بسم الله'
+
+# Replaces Hamzaat forms ‫ء‬, ,‫آ‬ ‫ؤ‬, ‫ئ‬, ‫ئ‬ with ‫أ
+anltk.normalize_hamzat('اللآلئ')
+# 'اللألأ'
+```
+
+
+## Constants
+
+
+```python
+
+anltk.constants.HAMZA
+anltk.constants.ALEF_MADDA
+anltk.constants.ALEF_HAMZA_ABOVE
+anltk.constants.WAW_HAMZA_ABOVE
+anltk.constants.ALEF_HAMZA_BELOW
+anltk.constants.YEH_HAMZA_ABOVE
+anltk.constants.ALEF_NO_HAMZA
+anltk.constants.BEH
+anltk.constants.TEH_MARBOOTA
+anltk.constants.TEH
+anltk.constants.THEH
+anltk.constants.JEEM
+anltk.constants.HAH
+anltk.constants.KHAH
+anltk.constants.DAL
+anltk.constants.THAL
+anltk.constants.REH
+anltk.constants.ZAIN
+anltk.constants.SEEN
+anltk.constants.SHEEN
+anltk.constants.SAD
+anltk.constants.DAD
+anltk.constants.TAH
+anltk.constants.ZAH
+anltk.constants.AIN
+anltk.constants.GHAIN
+anltk.constants.FEH
+anltk.constants.QAF
+anltk.constants.KAF
+anltk.constants.LAM
+anltk.constants.MEEM
+anltk.constants.NOON
+anltk.constants.HEH
+anltk.constants.WAW
+anltk.constants.ALEF_MAQSURA
+anltk.constants.YEH
+anltk.constants.ALEF_WASLA
+anltk.constants.PEH
+anltk.constants.TCHEH
+anltk.constants.VEH
+anltk.constants.GAF
+anltk.constants.TATWEEL
+anltk.constants.TANWEEN_FATHA
+anltk.constants.TANWEEN_DAMMA
+anltk.cons
