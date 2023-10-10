@@ -164,3 +164,13 @@ const constexpr std::array<char_t, 10> arqam_
      = { SEFR, WAHED, ETHNAN, THALATHA, ARBA3A, KHAMSA, SETTA, SAB3A, THAMANEYA, TES3A };
 
 const constexpr std::array<char_t, 14> qamari_
+    = { ALEF_NO_HAMZA, BEH, JEEM, HAH, KHAH, AIN, GHAIN, FEH, KAF, QAF, MEEM, HAH, WAW, YEH };
+
+const constexpr std::array<char_t, 14> shmasi_
+    = { TEH, THEH, DAL, THAL, REH, ZAIN, SEEN, SHEEN, SAD, DAD, TAH, ZAH, LAM, NOON };
+
+
+extern const std::map<char_t, std::string> chars_names_;
+} // namespace anltk
+
+#endif
