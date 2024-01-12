@@ -293,4 +293,28 @@ const std::map<char_t, std::string> chars_names_ =
 	{ U'\u0671', "ARABIC LETTER ALEF WASLA" },
 	{ U'\u067e', "ARABIC LETTER PEH" },
 	{ U'\u067e', "ARABIC LETTER PEH" },
-	{ U'\u06a4', "ARABIC LETTER
+	{ U'\u06a4', "ARABIC LETTER VEH" },
+	{ U'\u06af', "ARABIC LETTER GAF" },
+	{ U'\u060c', "ARABIC COMMA" },
+	{ U'\u061f', "ARABIC QUESTION MARK" },
+	{ U'\u060b', "AFGHANI SIGN" },
+	{ U'\u003a', "COLON" },
+	{ U'\u0025', "PERCENT SIGN" },
+	{ U'\u0021', "EXCLAMATION MARK" },
+	{ U'\u0028', "LEFT PARENTHESIS" },
+	{ U'\u0029', "RIGHT PARENTHESIS" },
+	{ U'\u002a', "ASTERISK" },
+	{ U'\u002b', "PLUS SIGN" },
+	{ U'\u002f', "SOLIDUS" },
+	{ U'\u002d', "HYPHEN-MINUS" },
+	{ U'\u003d', "EQUALS SIGN" },
+	{ U'\u06f0', "EXTENDED ARABIC-INDIC DIGIT ZERO" } 
+};
+
+std::string char_name(char_t c)
+{
+	auto name = chars_names_.find(c);
+	return name == chars_names_.end() ? "<unk>" : name->second;
+}
+// clang-format on
+} // namespace anltk
