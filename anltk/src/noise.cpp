@@ -43,4 +43,88 @@ std::string NoiseGenerator::swap_adjacent_chars(anltk::string_view_t input, size
 {
 	if (n == 0)
 	{
-		return std::string(input.beg
+		return std::string(input.begin(), input.end());
+	}
+
+	std::u32string inp = anltk::to_32string(input);
+	size_t len         = inp.size();
+	if (len < 2)
+	{
+		return std::string(input.begin(), input.end());
+	}
+
+	if (!_has_adjacent_ar_chars(inp))
+	{
+		return std::string(input.begin(), input.end());
+	}
+
+	for (size_t i = 0; i < n; i++)
+	{
+		int rnd_num = this->gen();
+		int pos     = (rnd_num % (len - 1));
+		// std::cout<< rnd_num << " :: " << pos <<std::endl;
+		while (!(is_arabic_alpha(inp[pos]) && is_arabic_alpha(inp[pos + 1])))
+		{
+			pos = (this->gen() % (len - 1));
+		}
+		std::swap(inp[pos], inp[pos + 1]);
+	}
+
+	return utf8::utf32to8(inp);
+}
+
+std::string NoiseGenerator::insert_random_chars(anltk::string_view_t input, size_t n)
+{
+	if (n == 0)
+	{
+		return std::string(input.begin(), input.end());
+	}
+	std::u32string inp = anltk::to_32string(input);
+
+	std::vector<size_t> indices = _get_indices_if(inp, anltk::is_arabic_alpha);
+
+	std::shuffle(indices.begin(), indices.end(), this->gen);
+
+	std::sort(indices.begin(), indices.begin() + std::min(n, indices.size()));
+
+	auto start = inp.begin();
+	auto end   = inp.end();
+
+	size_t insertion_idx = 0, random_idx = 0;
+
+	std::string result;
+
+	while (start < end)
+	{
+		utf8::append(*start, result);
+
+		if (random_idx < n && insertion_idx == indices[random_idx])
+		{
+			utf8::append(alphabet_[std::rand() % alphabet_.size()], result);
+			random_idx++;
+		}
+
+		insertion_idx++;
+		start++;
+	}
+
+	return result;
+}
+
+std::string NoiseGenerator::remove_random_chars(anltk::string_view_t input, size_t n)
+{
+	if (n == 0)
+	{
+		return std::string(input.begin(), input.end());
+	}
+
+	std::u32string inp = anltk::to_32string(input);
+	size_t len         = inp.size();
+
+	std::vector<size_t> indices = _get_indices_if(inp, anltk::is_arabic_alpha);
+
+	std::shuffle(indices.begin(), indices.end(), this->gen);
+
+	size_t limit = std::min(n, indices.size());
+
+	std::sort(indices.begin(), indices.begin() + lim
