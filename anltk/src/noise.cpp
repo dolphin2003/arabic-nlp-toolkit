@@ -127,4 +127,92 @@ std::string NoiseGenerator::remove_random_chars(anltk::string_view_t input, size
 
 	size_t limit = std::min(n, indices.size());
 
-	std::sort(indices.begin(), indices.begin() + lim
+	std::sort(indices.begin(), indices.begin() + limit);
+
+	std::string result;
+
+	for (size_t i = 0, del_i = 0; i < len; ++i)
+	{
+		if (del_i < limit && i == indices[del_i])
+		{
+			del_i++;
+			continue;
+		}
+		utf8::append(inp[i], result);
+	}
+
+	return result;
+}
+
+std::string NoiseGenerator::replace_random_chars(anltk::string_view_t input, size_t n)
+{
+	if (n == 0)
+	{
+		return std::string(input.begin(), input.end());
+	}
+
+	std::u32string inp = anltk::to_32string(input);
+	size_t len         = inp.size();
+
+	std::vector<size_t> indices = _get_indices_if(inp, anltk::is_arabic_alpha);
+
+	std::shuffle(indices.begin(), indices.end(), this->gen);
+
+	size_t limit = std::min(n, indices.size());
+
+	std::sort(indices.begin(), indices.begin() + limit);
+
+	std::string result;
+
+	for (size_t i = 0, repl_i = 0; i < len; ++i)
+	{
+		if (repl_i < limit && i == indices[repl_i])
+		{
+			repl_i++;
+			utf8::append(alphabet_[this->gen() % alphabet_.size()], result);
+			continue;
+		}
+		utf8::append(inp[i], result);
+	}
+
+	return result;
+}
+
+std::string NoiseGenerator::join_random_words(string_view_t input, size_t n)
+{
+	if (n == 0)
+	{
+		return std::string(input.begin(), input.end());
+	}
+	std::u32string inp = anltk::to_32string(input);
+	size_t len         = inp.size();
+
+	std::vector<size_t> indices
+	    = _get_indices_if(inp, [](char32_t c) { return std::isspace(static_cast<char>(c)); });
+
+	std::shuffle(indices.begin(), indices.end(), this->gen);
+
+	size_t limit = std::min(n, indices.size());
+
+	std::sort(indices.begin(), indices.begin() + limit);
+
+	std::string result;
+
+	for (size_t i = 0, del_i = 0; i < len; ++i)
+	{
+		if (del_i < limit && i == indices[del_i])
+		{
+			del_i++;
+			continue;
+		}
+		utf8::append(inp[i], result);
+	}
+
+	return result;
+}
+
+std::string NoiseGenerator::swap_random_words(string_view_t input, size_t n)
+{
+	if (n == 0)
+	{
+		return std::strin
