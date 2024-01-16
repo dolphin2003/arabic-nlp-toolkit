@@ -36,4 +36,47 @@
 *
 * @returns       : {string} The wordified number string in Arabic.
 **********************************************************************/
-#include 
+#include "anltk/anltk.hpp"
+#include <array>
+#include <iostream>
+#include <string>
+#include <vector>
+namespace anltk
+{
+const std::vector<std::string> TableScales{
+	"", "ألف", "مليون", "مليار", "ترليون", "كوادرليون", "كوينتليون", "سكستليون"
+}; // Add here only
+const std::vector<std::string> TableScalesP{ "", "آلاف", "ملايين",
+	                                         "مليارات" }; // Do not change this table
+const std::vector<std::string> TableMale{ "",    "واحد", "اثنان",  "ثلاثة", "أربعة", "خمسة",
+	                                      "ستة", "سبعة", "ثمانية", "تسعة",  "عشرة" };
+const std::vector<std::string> TableFemale{ "",   "واحدة", "اثنتان", "ثلاث", "أربع", "خمس",
+	                                        "ست", "سبع",   "ثمان",   "تسع",  "عشر" };
+
+std::string tafqit(long long Num, TafqitOptions opts)
+{
+	using namespace std::string_literals;
+	using std::string;
+	using std::vector;
+
+	if (Num == 0)
+		return "صفر"; // if 0 or "0" then "zero"
+	// let Triplet, Scale, ScalePos, ScalePlural, TableUnits, Table11_19, NumberInWords = "",
+	// IsLastEffTriplet = false,
+	// Num_99;
+	long long Triplet, ScalePos, Num_99;
+	string NumberInWords = "";
+	string Scale, ScalePlural;
+	bool IsLastEffTriplet = false;
+	bool ON               = true; // Flag to test if Option is ON
+
+	bool IsAG                 = (opts.is_accusative == ON); // Option Accusative or Genitive case Grammar?
+	string SpWa          = " و"; // AND word
+	string TanweenLetter = "ًا"; // Tanween Fatih for Scale Names above 10
+	string Ahad          = "أحد";
+	string Ehda          = "إحدى"; // Masculine/Feminine 11
+	// ---- Setup constants for the AG Option (Accusative/Genitive or Nominative case Grammar)
+	string Taa = IsAG ? "تي" : "تا";
+	string Taan = IsAG ? "تين" : "تان"; // Hundred 2's مئتا/مائتا مئتان/مائتان
+	string Aa = IsAG ? "ي" : "ا";
+	string Aan = IsAG ? "ين" : "ان"; // Scale 2's ا
