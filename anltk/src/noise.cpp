@@ -215,4 +215,42 @@ std::string NoiseGenerator::swap_random_words(string_view_t input, size_t n)
 {
 	if (n == 0)
 	{
-		return std::strin
+		return std::string(input.begin(), input.end());
+	}
+	std::vector<std::string> words = split(input);
+
+	size_t words_len = words.size();
+
+	if (words_len <= 1)
+	{
+		return std::string(input.begin(), input.end());
+	}
+	auto get_two_random_numbers = [this](auto start, auto end)
+	{
+		std::uniform_int_distribution<> distr(start, end);
+		int a = distr(this->gen);
+		int b = distr(this->gen);
+		while (a == b)
+			b = distr(this->gen);
+		return std::pair{ a, b };
+	};
+	using std::swap;
+
+	for (size_t i = 0; i < n; i++)
+	{
+		auto [a, b] = get_two_random_numbers(0, words_len - 1);
+		swap(words[a], words[b]);
+	}
+
+	std::string res = words[0];
+	for (size_t i = 1; i < words_len; ++i)
+	{
+		res += " " + words[i];
+	}
+	return res;
+}
+void NoiseGenerator::set_seed(int seed)
+{
+	this->gen.seed(seed);
+}
+} // namespace anltk
