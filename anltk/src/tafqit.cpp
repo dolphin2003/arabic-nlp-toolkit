@@ -113,4 +113,50 @@ std::string tafqit(long long Num, TafqitOptions opts)
 		long long Num_Unit   = Num_99 % 10; // 0 to 9 (1 digit)
 		long long Num_Tens   = (Num_99 / 10); // Tens   (1 digit)
 		string Word_100 = "";
-		strin
+		string Word_99  = ""; // Holds words for Hundreds & 0-99
+
+		if (opts.is_feminine == ON && Scale.empty())
+		{ // If Feminine, use the Feminine table if no scale
+			TableUnits = TableFemale;
+			Table11_19 = TableFemale; // Create copies of Feminine Table for manipulation
+			Table11_19[0]
+			    = TableMale[10]; // Borrow word "عشر" from Masculine's Table for use in 11-19
+			Table11_19[1] = Ehda; // Feminine starting words for 11
+			Table11_19[2] = Ethnata; // Feminine starting words for 12
+			TableUnits[2] = Ethnatan; // Feminine word for 2
+			if (Num_99 > 19)
+				TableUnits[1] = Ehda; // Feminine word for 1 used in 20's to 90's
+		}
+
+		if (Num_100)
+		{ // ---- Do Hundreds (100 to 900)
+			if (Num_100 > 2)
+				Word_100
+				    = TableFemale[Num_100] + (opts.split_hundred == ON ? " " : "") + MiahStr; // 300-900
+			else if (Num_100 == 1)
+				Word_100 = MiahStr; // 100
+			else
+				Word_100 = MiahStr.substr(0, MiahStr.size() - 2)
+				    + (((!Scale.empty() && !Num_99) || opts.has_followup_text)
+				           ? Taa
+				           : Taan); // 200 Use either مئتا or مئتان
+		}
+
+		if (Num_99 > 19)
+			Word_99 = TableUnits[Num_Unit] + (Num_Unit ? SpWa : "") + // 20-99 Units و and
+			    (Num_Tens == 2 ? "عشر" : TableFemale[Num_Tens])
+			    + Woon; // Add Woon for 20's or 30's to 90's
+		else if (Num_99 > 10)
+			Word_99 = Table11_19[Num_99 - 10] + " " + Table11_19[0]; // 11-19
+		else if (Num_99 > 2 || !Num_99 || !IsSubject)
+			Word_99 = TableUnits[Num_99]; // 0 or 3-10 (else keep void for 1 &2)
+
+		string Words999
+		    = Word_100 + (Num_100 && Num_99 ? SpWa : "") + Word_99; // Join Hund, Tens, and Units
+
+		if (!Scale.empty())
+		{ // Add Scale Name if applicable
+			string legalTxt = (opts.use_legal_form == ON && Num_99 < 3)
+			    ? " " + Scale
+			    : ""; // if Legal Option add Extra Word
+			string Word_100
