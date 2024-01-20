@@ -159,4 +159,49 @@ std::string tafqit(long long Num, TafqitOptions opts)
 			string legalTxt = (opts.use_legal_form == ON && Num_99 < 3)
 			    ? " " + Scale
 			    : ""; // if Legal Option add Extra Word
-			string Word_100
+			string Word_100Wa
+			    = (Num_100 ? Word_100 + legalTxt + SpWa : "") + Scale; // Default Scale Name
+			if (Num_99 > 2)
+			{
+				Words999 += " " + // Scale for for 3 to 99
+				    (Num_99 > 10 ? Scale
+				             + (IsLastEffTriplet && opts.has_followup_text
+				                    ? ""
+				                    : TanweenLetter) // Scale for 11 to 99 (Tanween)
+				                 : ScalePlural); // Scale for 3 to 10 (Plural)
+			}
+			else
+			{
+				if (!Num_99)
+					Words999 += " " + Scale; // Scale for 0
+				else if (Num_99 == 1)
+					Words999 = Word_100Wa; // Scale for 1
+				else
+					Words999 = Word_100Wa
+					    + (IsLastEffTriplet && opts.has_followup_text
+					           ? Aa
+					           : Aan); // Scale for 2 ألفا or ألفان
+			}
+		}
+		return Words999; // Return the Triple in Words
+	};
+
+	// NumIn = "0".repeat(NumIn.length * 2 % 3) + NumIn; // Convert Number to a Triplets String
+	NumIn = string(NumIn.size() * 2 % 3, '0') + NumIn; // Convert Number to a Triplets String;
+	size_t NumLen = NumIn.size();
+	for (size_t digits = NumLen; digits > 0; digits -= 3)
+	{ // Loop and convert each Triplet
+		Triplet = std::stoll(NumIn.substr(NumLen - digits, 3)); // Get a Triplet Number
+		string lastTriplet = NumIn.substr(NumLen - digits + 3);
+		IsLastEffTriplet        = lastTriplet.empty()
+		    || !std::stoll(lastTriplet); // Determine if Last Effective Triplet
+		if (Triplet)
+		{
+			// If not Empty: Convert Triplet Number to Words
+			ScalePos    = digits / 3 - 1; // Position of Scale Name in Scale Table
+			Scale       = TableScales[ScalePos]; // Get Scale Name
+			ScalePlural = (ScalePos < 4 ? TableScalesP[ScalePos]
+			                            : TableScales[ScalePos] + "ات"); // Make Scale Plural
+			if (opts.use_billion && ScalePos == 3)
+				Scale = "بليون", ScalePlural = "بلايين"; // If Billions Option
+			Nu
