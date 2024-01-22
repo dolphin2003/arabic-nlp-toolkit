@@ -204,4 +204,28 @@ std::string tafqit(long long Num, TafqitOptions opts)
 			                            : TableScales[ScalePos] + "ات"); // Make Scale Plural
 			if (opts.use_billion && ScalePos == 3)
 				Scale = "بليون", ScalePlural = "بلايين"; // If Billions Option
-			Nu
+			NumberInWords += oneTripletToWords(); // Convert 1 Triplet to Words
+			if (!IsLastEffTriplet)
+				NumberInWords += (opts.use_comma == ON ? "،" : "") + SpWa; // Add "و " and Option Comma
+		}
+	}
+	// All done with conversion, Process Subject Name if any
+	string SubjectName = "";
+	if (IsSubject)
+	{ // Process Subject Name
+		string space = !IsLastEffTriplet ? "" : " "; // Position correct spacing
+		// Triplet = +(Triplet + "").slice(-2); // Get last 2 digits of last Triplet
+		Triplet     = Triplet % 100;
+		SubjectName = space + opts.subjects[0]; // Default Subject Name is at Pos 0
+		if (Triplet > 10)
+			SubjectName = space + opts.subjects[3]; // Subject name with Tanween for 11-99
+		else if (Triplet > 2)
+			SubjectName = space + opts.subjects[2]; // Subject name Plural for 3-10
+		else if (Triplet > 0)
+			SubjectName
+			    = opts.subjects[Triplet - 1] + " " + TableUnits[Num_99]; // Reverse names for 1 or 2
+	}
+
+	return (Num < 0 ? "سالب " : "") +  NumberInWords + SubjectName; // All done
+}
+} // namespace anltk
