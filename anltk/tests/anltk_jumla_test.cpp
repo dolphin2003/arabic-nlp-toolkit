@@ -31,4 +31,12 @@ TEST_CASE("Jumla")
 		REQUIRE(jumla.first()->next()->first()->to_string() == "ا");
 		REQUIRE(jumla.last()->first()->to_string() == "ت");
 		REQUIRE(jumla.last()->last()->to_string() == ".");
-		REQUIRE(jumla.fi
+		REQUIRE(jumla.first()->next()->last()->c() == anltk::FATHA);
+		REQUIRE(*jumla.first()->next()->last() == anltk::FATHA);
+
+		REQUIRE(jumla.first()->first()->kalima()->to_string() == "إن");
+		REQUIRE(jumla.first()->first()->kalima()->next()->to_string() == "السماءَ");
+		REQUIRE(jumla.to_string() == "إن السماءَ صافية, والعصافير تطير.");
+		REQUIRE(jumla == "إن السماءَ صافية, والعصافير تطير.");
+	}
+}
