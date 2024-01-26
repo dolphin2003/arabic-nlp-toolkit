@@ -72,4 +72,64 @@ bool is_valid_kalima(string_view_t input)
 	}
 
 	if (!std::all_of(text.begin(), text.end(),
-	           
+	                 [](char32_t c) { return anltk::is_arabic_alpha(c) || anltk::is_tashkeel(c); }))
+	{
+		return false;
+	}
+
+	auto first_letter = text.front();
+	if (is_tashkeel(first_letter) || first_letter == WAW_HAMZA_ABOVE
+	    || first_letter == YEH_HAMZA_ABOVE)
+	{
+		return false;
+	}
+
+	const char_t* double_shadda = U"\u0651\u0651";
+	if (text.find(double_shadda) != string_t::npos)
+	{
+		return false;
+	}
+
+	const char_t* double_taa_teh_marboota = U"\u0629\u0629";
+	if (text.find(double_taa_teh_marboota) != string_t::npos)
+	{
+		return false;
+	}
+
+	const char_t space = U' ';
+	if (text.find(space) != string_t::npos)
+	{
+		return false;
+	}
+
+	// Three consecutive harakat
+	if (text.length() > 3)
+	{
+		for (size_t i = 0; i < text.length() - 3; ++i)
+		{
+			if (is_tashkeel(text[i]) && is_tashkeel(text[i + 1]) && is_tashkeel(text[i + 2]))
+			{
+				return false;
+			}
+		}
+	}
+
+	// TEH_MARBOOTA or ALEF_MQSURA not at the end
+	text.pop_back();
+	for (auto it = text.begin(); it != text.end(); ++it)
+	{
+		if (*it == TEH_MARBOOTA || *it == ALEF_MAQSURA)
+		{
+			return false;
+		}
+	}
+
+	return true;
+}
+
+std::u32string to_32string(string_view_t input)
+{
+	return utf8::utf8to32(input);
+}
+
+} // namespace anltk
