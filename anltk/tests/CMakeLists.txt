@@ -36,4 +36,25 @@ foreach(test_target ${ANLTK_TEST_TARGETS})
 	target_link_libraries(
 		${test_target}
 		PRIVATE
-		d
+		doctest::doctest
+		anltk
+	)
+
+	set_target_properties(
+		${test_target} 
+		PROPERTIES 
+		CXX_STANDARD 20
+	)
+	if (WIN32)
+		target_compile_definitions(
+			${test_target} PRIVATE
+			UTF_CPP_CPLUSPLUS=201703L
+		)
+		target_compile_options(
+			${test_target} PRIVATE
+			/utf-8
+		)
+	endif()
+	doctest_discover_tests(${test_target})
+
+endforeach()
