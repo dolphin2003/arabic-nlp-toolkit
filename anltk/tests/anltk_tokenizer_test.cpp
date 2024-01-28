@@ -162,3 +162,49 @@ TEST_CASE("tokenize If")
 		std::string input = "Nice Input Bro";
 
 		std::vector<std::pair<int, std::string>> expected = { { -1, "Nice Input Bro" } };
+
+		std::vector<std::pair<int, std::string>> found = anltk::tokenize_if(input, {});
+
+		REQUIRE(found == expected);
+	}
+
+	SUBCASE("Multiple Matches")
+	{
+		// Matches by functions order
+		std::string input = "بسم الله";
+
+		std::vector<std::pair<int, std::string>> expected
+		    = { { 0, "بسم" }, { -1, " " }, { 0, "الله" } };
+
+		std::vector<std::pair<int, std::string>> found
+		    = anltk::tokenize_if(input, { &anltk::is_arabic_alpha, &anltk::is_arabic_alpha });
+
+		// for (auto [i, seq] : found)
+		// {
+		// 	std::cout << "{" << i << " , \"" << seq << "\"}," << std::endl;
+		// }
+		REQUIRE(found == expected);
+	}
+	SUBCASE("Tokenize words")
+	{
+		std::vector<std::pair<int, std::string>> tmp = anltk::tokenize_if(
+		    "ال3 بِسْمِ الـله!! ي الرّح3من ال رحيمِ؟", { [](char32_t c) {
+			    return anltk::is_arabic_alpha(c) || anltk::is_tashkeel(c) || c == anltk::TATWEEL ;
+		    } });
+		std::vector<std::string> expected;
+		for (auto [id, token] : tmp)
+		{
+			anltk::trim(token);
+			if (token.empty())
+			{
+				continue;
+			}
+			expected.push_back(token);
+		}
+
+		std::vector<std::string> found
+		    = { "ال", "3", "بِسْمِ", "الـله", "!!", "ي", "الرّح", "3", "من", "ال", "رحيمِ", "؟" };
+
+		REQUIRE(found == expected);
+	}
+}
